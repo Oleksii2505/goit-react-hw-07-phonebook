@@ -10,22 +10,10 @@ const ContactList = () => {
     const isLoading = useSelector(selectIsLoading);
     const error = useSelector(selectError);
     const filteredContacts = useSelector(selectVisibleContacts);
-    // const {numbers} = useSelector(state => state.contacts);
-    // const filter = useSelector(state => state.filter);
     
     useEffect(() => {
         dispatch(fetchContacts());
     }, [dispatch]);
-    
-
-    // const getFilteredContacts = (contacts, filter) => {
-    //     const normalizedFilter = filter.toLowerCase();
-    //     return contacts.filter((contact) =>
-    //       contact.name.toLowerCase().includes(normalizedFilter)
-    //     );
-    // };
-    
-    
     
     const onClickDelete = contactId => {
         dispatch(deleteContact(contactId));
