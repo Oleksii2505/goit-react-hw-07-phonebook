@@ -6,7 +6,7 @@ import { selectContacts } from 'components/Redux/selectors';
 
 const ContactForm = () => {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
     const dispatch = useDispatch();
     const contacts = useSelector(selectContacts)
 
@@ -15,19 +15,19 @@ const ContactForm = () => {
         const contact = Array.isArray(contacts) && contacts.find(
           (c) =>
             c.name.toLowerCase() === name.toLowerCase() ||
-            c.number.toLowerCase() === number.toLowerCase()
+            c.phone.toLowerCase() === phone.toLowerCase()
         );
         if (contact) {
           if (contact.name.toLowerCase() === name.toLowerCase()) {
             return alert(`${name} is already in contact`);
-          } else if (contact.number.toLowerCase() === number.toLowerCase()) {
-            return alert(`${number} is already in contact`);
+          } else if (contact.phone.toLowerCase() === phone.toLowerCase()) {
+            return alert(`${phone} is already in contact`);
           }
         };
         dispatch(
           addContact({
             name: name,
-            number: number,
+            number: phone,
           })
         );
         resetForm();
@@ -35,7 +35,7 @@ const ContactForm = () => {
 
       const resetForm = () => {
         setName('');
-        setNumber('');
+        setPhone('');
       };
     
     const onInputChange = e => {
@@ -45,7 +45,7 @@ const ContactForm = () => {
             setName(value);
             break;
           case 'number':
-            setNumber(value);
+            setPhone(value);
             break;
     
           default:
@@ -78,7 +78,7 @@ const ContactForm = () => {
                     required
                     placeholder="Enter contact number"
                     onChange={onInputChange}
-                    value={number}
+                    value={phone}
                 />
             </Label>
             <SubmitBtn type="submit">Add contact</SubmitBtn>
