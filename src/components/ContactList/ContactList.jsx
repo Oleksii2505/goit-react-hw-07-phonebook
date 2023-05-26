@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
-// import { useEffect } from 'react';
-import { deleteContact } from '../Redux/operations';
+import { useEffect } from 'react';
+import { deleteContact, fetchContacts } from '../Redux/operations';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectVisibleContacts } from 'components/Redux/selectors';
+import { selectVisibleContacts, selectIsLoading, selectError } from 'components/Redux/selectors';
 import { DeleteBtn, Item, List } from './ContactList.styled';
 
 const ContactList = () => {
     const dispatch = useDispatch();
-    // const isLoading = useSelector(selectIsLoading);
-    // const error = useSelector(selectError);
+    const isLoading = useSelector(selectIsLoading);
+    const error = useSelector(selectError);
     const filteredContacts = useSelector(selectVisibleContacts);
     
-    // useEffect(() => {
-    //     dispatch(fetchContacts());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchContacts());
+    }, [dispatch]);
     
     const onClickDelete = contactId => {
         dispatch(deleteContact(contactId));
@@ -21,7 +21,7 @@ const ContactList = () => {
     
     return (
         <List>
-            {/* {isLoading && !error && <b>Loading...</b>} */}
+            {isLoading && !error && <b>Loading...</b>}
             {filteredContacts.map(({ id, name, phone }) =>  {
                 return (
                     <Item key={id}>
